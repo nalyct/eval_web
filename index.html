@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates Films</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="AJAX/js/jquery-3.2.1.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <div style="text-align: center; margin: 20px 0;">
+        <button id="add-film-btn">Ajouter un film</button>
+        <button id="minBtn">Note minimale</button>
+        <button id="maxBtn">Note maximale</button>
+    </div>
+
+    <div id="min-Range" style="display: none;">
+        <label>Choisir la note minimum</label>
+        <input type="range" id="noteMin" min="0" max="5" step="0.1" value="0">
+    </div>
+
+    <div id="max-Range" style="display: none;">
+        <label>Choisir la note maximum</label>
+        <input type="range" id="noteMax" min="0" max="5" step="0.1" value="5">
+    </div>
+
+
+
+
+    <form id="add-movie" style="display: none;">
+        <label>Nom du film:</label>
+        <input type="text" id="nomFORM" name="nom"><br>
+        <label>Date de sortie:</label>
+        <input type="text" id="dateDeSortieFORM"><br>
+        <label>Realisateur</label>
+        <input type="text" id="realisateurFORM"><br>
+        <label>Note:</label>
+        <input type="number" id="noteFORM"><br>
+        <label>Note du publique:</label>
+        <input type="number" id="notePublicFORM"><br>
+        <label>Compagnie</label>
+        <input type="text" id="compagnieFORM"><br>
+        <label>Description</label>
+        <input type="text" id="descriptionFORM"><br>
+        <label>Origine:</label>
+        <select id="origineFORM" name="origine" required>
+            <option value="France">France</option>
+            <option value="Angleterre">Angleterre</option>
+            <option value="Belgique">Belgique</option>
+            <option value="Pays-Bas">Pays-Bas</option>
+        </select><br>
+        <label>Lien de l'image</label>
+        <input type="text" id="lienImageFORM"><br>
+
+        <button type="submit">Ajouter le film</button>
+    </form>
+
+    <div id="edit-movie-form" style="display: none;">
+        <h2>Modifier le film</h2>
+        <form id="edit-form">
+            <input type="hidden" id="edit-movie-id" name="id">
+            <label>Lien de l'image:</label>
+            <input type="text" id="edit-lienImage" name="lienImage" required><br>
+            <label>Nom du film:</label>
+            <input type="text" id="edit-nom" name="nom" required><br>
+            <label>Date de sortie:</label>
+            <input type="text" id="edit-dateDeSortie" name="dateDeSortie" required><br>
+            <label>Réalisateur:</label>
+            <input type="text" id="edit-realisateur" name="realisateur" required><br>
+            <label>Note:</label>
+            <input type="number" id="edit-note" name="note" step="0.1" min="0" max="5" required><br>
+            <label>Note du public:</label>
+            <input type="number" id="edit-notePublic" name="notePublic" step="0.1" min="0" max="5"><br>
+            <label>Compagnie:</label>
+            <input type="text" id="edit-compagnie" name="compagnie" required><br>
+            <label>Description:</label>
+            <textarea id="edit-description" name="description" required></textarea><br>
+            <label>Origine:</label>
+            <select id="edit-origine" name="origine" required>
+                <option value="France">France</option>
+                <option value="Angleterre">Angleterre</option>
+                <option value="Belgique">Belgique</option>
+                <option value="Pays-Bas">Pays-Bas</option>
+            </select><br>
+            <button type="submit">Enregistrer</button>
+            <button type="button" id="cancel-edit">Annuler</button>
+        </form>
+    </div>
+
+    <br><br><br>
+
+
+    <select name="categorie-drop" id="categorie-drop">
+        <option value="standard">Standard</option>
+        <option value="classique">Classique</option>
+        <option value="navet">Navet</option>
+    </select>
+
+    <select name="drop" id="drop">
+        <option value="all">ALL</option>
+        <option value="France">France</option>
+        <option value="Angleterre">Angleterre</option>
+        <option value="Belgique">Belgique</option>
+        <option value="Pays-Bas">Pays-Bas</option>
+    </select>
+
+    <p id="diff"></p>
+
+    </br></br></br></br>
+
+    <button id="load-movies-btn">Charger les films</button>
+    <template id="movie-template">
+        <div class="movie">
+            <img class="lienImage">
+            <p><u><span class="nom">Name</span></u></p>
+            <p>Date de sortie: <span class="dateDeSortie">date</span></p>
+            <p>Réalisateur: <span class="realisateur">Name</span></p>
+            <p>Note de la critique: <span class="note">Note</span></p>
+            <p>Note du publique: <span class="notePublic">noteP</span></p>
+            <p>Différence de note: <span class="diffNote">diffNote</span></p>
+            <p>Compagnie: <span class="compagnie">Company</span></p>
+            <p>Description: <span class="description">Desc!</span></p>
+            <p>Origine: <span class="origineMovie">origine</span></p>
+
+            <button class="bomb">Delete</button>
+            <button class="edit">Modifier</button>
+        </div>
+    </template>
+
+
+    <template id="movie-navet">
+        <div class="movie">
+            <img class="lienImage">
+            <p><u><span class="nom">Name</span></u></p>
+            <p>Description: ne mérite pas d'être vue</p>
+
+        </div>
+    </template>
+
+    <template id="movie-classic">
+        <div class="movie">
+            <img class="lienImage">
+            <p><u><span class="nom">Name</span></u></p>
+            <p>Date d'sortie: <span class="dateDeSortie">date</span></p>
+            <p>Réalisateur: <span class="realisateur">Name</span></p>
+            <p>Note de la critique: <span class="note">Note</span></p>
+            <p>Note du publique: <span class="notePublic"></span></p>
+            <p>Compagnie: <span class="compagnie">Company</span></p>
+            <p>Description: <span class="description">Desc!</span></p>
+            <img class="lienImage">
+        </div>
+    </template>
+
+    <div id="movies-list"></div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
